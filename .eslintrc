@@ -1,0 +1,112 @@
+{
+  "root": true,
+  "extends": [
+    "plugin:@typescript-eslint/recommended",
+    "plugin:css-modules/recommended",
+    "plugin:react/jsx-runtime",
+  ],
+  "plugins": ["@typescript-eslint", "css-modules", "react-refresh", "import"],
+  "overrides": [
+    {
+      "files": ["**/*.ts", "**/*.tsx"],
+      "parser": "@typescript-eslint/parser",
+      "plugins": ["@typescript-eslint"],
+      "parserOptions": { "project": "./tsconfig.app.json" },
+      "rules": {
+        "@typescript-eslint/await-thenable": 2, // Disallow await statements that are not thenable, must be only applied to TS files
+        "@typescript-eslint/require-await": 2, // Forbid functions that do not have an await statement inside to have the async keyword
+      },
+    },
+    {
+      "files": ["*.test.ts", "*.test.tsx"],
+      "plugins": ["jest"],
+      "rules": {
+        "no-unused-expressions": 0, // Allow unused expressions in tests
+        "@typescript-eslint/no-unused-expressions": 0, // Allow unused expressions in tests
+        "jest/no-focused-tests": 2, // Forbid focused tests
+      },
+    },
+  ],
+
+  "rules": {
+    "react-refresh/only-export-components": 2, // Forces naming convention for exported components/functions
+    "arrow-body-style": [2, "as-needed"], // Remove all explicit returns that are not necessary
+    "curly": 2, // Avoid single line IFs, force curly brace on the same line
+    "default-case": 0, // Allow switch statements without a default case
+    "dot-notation": 2, // Enforce dot notation whenever possible. Example: Object['value'] to object.value
+    "eqeqeq": [2, "always", { "null": "ignore" }], // Require strict equality, except for null/undefined checks
+    "jsx-a11y/anchor-is-valid": 0, // Allow anchor tag to have invalid href attribute. Example: href="#" or href="javascript:void(0)"
+    "newline-before-return": 2, // Add newline before every return
+    "no-console": 2, // Forbid console logs
+    "no-irregular-whitespace": 2, // Guard from weird whitespaces in code. Example: 'hello\u200Bworld'
+    "no-nested-ternary": 2, // Forbid nesting of optional chaining which hinders readability
+    "no-template-curly-in-string": 0, // Allow template literals in strings
+    "no-unneeded-ternary": [2, { "defaultAssignment": false }], // Prefer logical OR over ternary when possible. Example: "x ? x : 1" to "x || 1"
+    "no-useless-return": 2, // Forbid all explicit returns that serve no purpose
+    "no-var": 2, // Forbid var declaration
+    "object-shorthand": 2, // Prefer object shorthand notation. Example: { someProp: someProp } to { someProp }
+    "prefer-const": 2, // Force const declarations for variables that are not mutated
+    "spaced-comment": 2, // Force one whitespace after "//" comment
+    "strict": [2, "never"], // Disallow unsafe functions that are not allowed under strict mode
+    "@next/next/no-img-element": 0, // Allow img elements in Next.js
+    "import/no-default-export": 0,
+    "import/order": [
+      1,
+      {
+        "groups": [
+          ["builtin", "external"],
+          ["internal", "parent", "sibling", "index"],
+        ],
+        "newlines-between": "always",
+        "pathGroups": [
+          {
+            "pattern": "react",
+            "group": "builtin",
+            "position": "before",
+          },
+          {
+            "pattern": "./**/*.{scss,css}",
+            "group": "sibling",
+            "position": "after",
+          },
+        ],
+        "distinctGroup": false,
+        "pathGroupsExcludedImportTypes": ["react", "scss"],
+      },
+    ], // Sort imports in groups, react first, then external. After a new line, components and lastly in the same group scss import
+    "import/extensions": [
+      0,
+      "ignorePackages",
+      {
+        "js": "never",
+        "ts": "never",
+        "tsx": "never",
+      },
+    ], // Force extensions on imports apart from the JS/TS related ones
+
+    "react-hooks/exhaustive-deps": 0, // Allow missing dependencies in useEffect
+    "react/display-name": 0, // Allow unnamed components (no displayName)
+    "react/jsx-boolean-value": 2, // Prefer omitting boolean props to setting them to true. Example: <input disabled /> instead of <input disabled={true} />
+    "react/jsx-curly-brace-presence": [2, { "propElementValues": "always" }], // Enforce curly braces for variable/element props. Disallow curly braces for string props
+    "react/no-unused-prop-types": 2, // Forbid unused types for component props
+    "react/self-closing-comp": 2, // Empty JSX tags will collapse. Example: <div></div> to <div/>
+    "no-unsafe-optional-chaining": 2, // Forbid optional chaining when it could cause TypeError
+    "yoda": 2, // Forbid yoda conditions - if (1 === x) results to if (x === 1)
+
+    "no-shadow": 0, // Forbid variable shadowing (handled by TS)
+    "no-unused-vars": 0, // Forbid unused variables (handled by TS)
+    "no-use-before-define": 0, // Forbid use of variables before they are defined (handled by TS)
+    "require-await": 0, // Forbid non-async functions to have async keyword (handled by TS above)
+
+    "@typescript-eslint/explicit-module-boundary-types": 0, // Allow functions without explicit return type
+    "@typescript-eslint/no-empty-function": 0, // Allow empty functions
+    "@typescript-eslint/no-explicit-any": 0, // Allow the use of the any type
+    "@typescript-eslint/no-shadow": 2, // Forbid variable shadowing
+    "@typescript-eslint/no-unused-vars": [
+      2,
+      { "ignoreRestSiblings": true, "args": "all", "argsIgnorePattern": "^_" },
+    ], // Forbid unused variables except for those starting with _
+    "@typescript-eslint/no-use-before-define": 2, // Require variables to be defined before they are used
+    "@typescript-eslint/no-var-requires": 0, // Allow require statements
+  },
+}
