@@ -1,10 +1,22 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 
 import { App } from '../App';
+import { renderWithQueryClient } from '../test/testUtils';
+
+vi.mock('../clientApi/forex', () => ({
+  useForexRates: vi.fn().mockReturnValue({
+    data: {
+      date: '2024-01-15',
+      rates: [],
+    },
+    isLoading: false,
+    error: null,
+  }),
+}));
 
 describe('App', () => {
   it('should display the Monex title', () => {
-    render(<App />);
+    renderWithQueryClient(<App />);
 
     const titleElement = screen.getByText('Monex');
     expect(titleElement).toBeInTheDocument();
@@ -12,15 +24,23 @@ describe('App', () => {
   });
 
   it('should display the subtitle', () => {
-    render(<App />);
+    renderWithQueryClient(<App />);
 
     const subtitleElement = screen.getByText('The Currency Converter');
     expect(subtitleElement).toBeInTheDocument();
     expect(subtitleElement.tagName).toBe('H2');
   });
 
+  it('should display the date', () => {
+    renderWithQueryClient(<App />);
+
+    const dateElement = screen.getByText('Date: 2024-01-15');
+    expect(dateElement).toBeInTheDocument();
+    expect(dateElement.tagName).toBe('P');
+  });
+
   it('should display the footer text', () => {
-    render(<App />);
+    renderWithQueryClient(<App />);
 
     const footerElement = screen.getByText('Made by Lukas Cizek');
     expect(footerElement).toBeInTheDocument();
