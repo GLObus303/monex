@@ -2,6 +2,8 @@
 
 A modern forex application that displays daily CNB (Czech National Bank) exchange rates, built with React, TypeScript and Vite.
 
+Deployed: https://monex-five.vercel.app/
+
 ## Prerequisites
 
 - Node.js >= 22.12.0

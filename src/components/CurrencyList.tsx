@@ -79,6 +79,10 @@ const CurrencyRate = styled.span`
   font-size: 0.9rem;
 `;
 
+const formatter = new Intl.NumberFormat('en-US', {
+  maximumFractionDigits: 4,
+});
+
 type CurrencyListProps = {
   rates: ForexRate[];
   selectedCurrency: string;
@@ -105,21 +109,23 @@ export const CurrencyList: React.FC<CurrencyListProps> = ({
     <ExchangeRatesSection>
       <ExchangeRatesTitle>Exchange Rates</ExchangeRatesTitle>
       <CurrencyListContainer>
-        {rates.map((rate) => (
+        {rates.map(({ code, currency, rate, amount }) => (
           <CurrencyItem
-            key={rate.code}
-            $isSelected={selectedCurrency === rate.code}
-            onClick={() => handleCurrencyClick(rate.code)}
-            aria-label={`Select ${rate.currency} (${rate.code})`}
+            key={code}
+            $isSelected={selectedCurrency === code}
+            onClick={() => handleCurrencyClick(code)}
+            aria-label={`Select ${currency} (${code})`}
             role="button"
             tabIndex={0}
-            onKeyDown={(e) => handleKeyDown(e, rate.code)}
+            onKeyDown={(e) => handleKeyDown(e, code)}
           >
             <CurrencyInfo>
-              <CurrencyCode>{rate.code}</CurrencyCode>
-              <CurrencyName>{rate.currency}</CurrencyName>
+              <CurrencyCode>{code}</CurrencyCode>
+              <CurrencyName>{currency}</CurrencyName>
             </CurrencyInfo>
-            <CurrencyRate>{rate.rate?.toLocaleString() || 'N/A'}</CurrencyRate>
+            <CurrencyRate>
+              {formatter.format(rate / amount) || 'N/A'}
+            </CurrencyRate>
           </CurrencyItem>
         ))}
       </CurrencyListContainer>

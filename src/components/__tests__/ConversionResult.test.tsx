@@ -7,24 +7,26 @@ describe('ConversionResult', () => {
   it('renders conversion result when all data is provided', () => {
     render(
       <ConversionResult
-        amount="100"
+        userAmount="100"
         selectedCurrency="USD"
-        convertedAmount="2326.50"
+        convertedAmount="2,326.5"
         exchangeRate={23.265}
+        baseAmount={1}
       />,
     );
 
     expect(screen.getByText('Conversion Result')).toBeInTheDocument();
-    expect(screen.getByText('2326.50 USD')).toBeInTheDocument();
+    expect(screen.getByText('2,326.5 USD')).toBeInTheDocument();
   });
 
   it('renders conversion result with decimal amount', () => {
     render(
       <ConversionResult
-        amount="0.34"
+        userAmount="0.34"
         selectedCurrency="EUR"
         convertedAmount="8.58"
         exchangeRate={25.23}
+        baseAmount={1}
       />,
     );
 
@@ -34,36 +36,39 @@ describe('ConversionResult', () => {
   it('handles zero amount correctly', () => {
     render(
       <ConversionResult
-        amount="0"
+        userAmount="0"
         selectedCurrency="USD"
-        convertedAmount="0.00"
+        convertedAmount="0"
         exchangeRate={23.265}
+        baseAmount={1}
       />,
     );
 
-    expect(screen.getByText('0.00 USD')).toBeInTheDocument();
+    expect(screen.getByText('0 USD')).toBeInTheDocument();
   });
 
   it('handles large amounts correctly', () => {
     render(
       <ConversionResult
-        amount="10000"
+        userAmount="10000"
         selectedCurrency="EUR"
-        convertedAmount="252300.00"
+        convertedAmount="252,300"
         exchangeRate={25.23}
+        baseAmount={1}
       />,
     );
 
-    expect(screen.getByText('252300.00 EUR')).toBeInTheDocument();
+    expect(screen.getByText('252,300 EUR')).toBeInTheDocument();
   });
 
   it('handles null conversion result correctly', () => {
     render(
       <ConversionResult
-        amount="100"
+        userAmount="100"
         selectedCurrency="USD"
         convertedAmount=""
         exchangeRate={23.265}
+        baseAmount={1}
       />,
     );
 

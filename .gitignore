@@ -25,3 +25,7 @@ dist-ssr
 .nvmrc
 .vercel
 .vscode
+
+# Playwright
+e2e-playwright/playwright-report/
+test-results/
