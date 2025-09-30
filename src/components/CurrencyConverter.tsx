@@ -39,10 +39,10 @@ type CurrencyConverterProps = {
 export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
   rates,
 }) => {
-  const [amount, setAmount] = useState('');
+  const [userAmount, setUserAmount] = useState('');
   const [selectedCurrency, setSelectedCurrency] = useState('');
 
-  const debouncedAmount = useDebounce(amount, 200);
+  const debouncedAmount = useDebounce(userAmount, 200);
 
   const conversionResult = useMemo(() => {
     if (!debouncedAmount || !selectedCurrency || !rates.length) {
@@ -54,17 +54,18 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
       return null;
     }
 
-    const selectedRate = rates.find((rate) => rate.code === selectedCurrency);
-    if (!selectedRate || selectedRate.rate == null) {
+    const { rate, amount } =
+      rates.find((innerRate) => innerRate.code === selectedCurrency) || {};
+    if (rate == null || amount == null) {
       return null;
     }
 
-    const convertedAmount = (numericAmount * selectedRate.rate).toFixed(2);
+    const convertedAmount = ((numericAmount * rate) / amount).toFixed(2);
 
     return {
-      amount: numericAmount,
-      currency: selectedRate,
+      rate,
       convertedAmount,
+      baseAmount: amount,
     };
   }, [debouncedAmount, selectedCurrency, rates]);
 
@@ -72,7 +73,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
     <ConverterContainer>
       <Title>Currency Converter</Title>
 
-      <CurrencyInput amount={amount} onAmountChange={setAmount} />
+      <CurrencyInput amount={userAmount} onAmountChange={setUserAmount} />
 
       <CurrencyList
         rates={rates}
@@ -81,10 +82,11 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
       />
 
       <ConversionResult
-        amount={amount}
+        userAmount={userAmount}
         selectedCurrency={selectedCurrency}
         convertedAmount={conversionResult?.convertedAmount}
-        exchangeRate={conversionResult?.currency.rate}
+        exchangeRate={conversionResult?.rate}
+        baseAmount={conversionResult?.baseAmount}
       />
     </ConverterContainer>
   );

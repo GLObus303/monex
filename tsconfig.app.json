@@ -21,7 +21,7 @@
     "useDefineForClassFields": true,
     "lib": ["ES2022", "DOM", "DOM.Iterable"],
     "module": "ESNext",
-    "types": ["vite/client", "vitest/globals"],
+    "types": ["vite/client", "vitest/globals", "@playwright/test"],
     "skipLibCheck": true,
 
     /* Bundler mode */
@@ -40,5 +40,5 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["src", "api"]
+  "include": ["src", "api", "e2e-playwright"]
 }

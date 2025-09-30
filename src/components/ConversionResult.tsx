@@ -29,22 +29,24 @@ const ResultDetails = styled.div`
 `;
 
 type ConversionResultProps = {
-  amount: string;
+  userAmount: string;
   selectedCurrency: string;
   convertedAmount?: string;
   exchangeRate?: number;
+  baseAmount?: number;
 };
 
 export const ConversionResult: React.FC<ConversionResultProps> = ({
-  amount,
+  userAmount,
   selectedCurrency,
   convertedAmount,
   exchangeRate,
+  baseAmount,
 }) => {
   const [parent] = useAutoAnimate();
 
   const hasValidConversion =
-    !!amount && !!selectedCurrency && !!convertedAmount;
+    !!userAmount && !!selectedCurrency && !!convertedAmount;
 
   return (
     <div ref={parent}>
@@ -56,10 +58,11 @@ export const ConversionResult: React.FC<ConversionResultProps> = ({
             {convertedAmount} {selectedCurrency}
           </ResultValue>
           <ResultDetails>
-            {Number(amount).toFixed(2)} CZK = {convertedAmount}{' '}
+            {Number(userAmount).toFixed(2)} CZK = {convertedAmount}{' '}
             {selectedCurrency}
-            <br />
-            Rate: 1 CZK = {exchangeRate} {selectedCurrency}
+            <div>
+              Rate: {baseAmount} CZK = {exchangeRate} {selectedCurrency}
+            </div>
           </ResultDetails>
         </ResultSection>
       )}
