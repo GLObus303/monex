@@ -60,7 +60,7 @@ export const CurrencyConverter: React.FC<CurrencyConverterProps> = ({
       return null;
     }
 
-    const convertedAmount = ((numericAmount * rate) / amount).toFixed(2);
+    const convertedAmount = ((numericAmount / rate) * amount).toFixed(2);
 
     return {
       rate,

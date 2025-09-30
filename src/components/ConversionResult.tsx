@@ -61,7 +61,8 @@ export const ConversionResult: React.FC<ConversionResultProps> = ({
             {Number(userAmount).toFixed(2)} CZK = {convertedAmount}{' '}
             {selectedCurrency}
             <div>
-              Rate: {baseAmount} CZK = {exchangeRate} {selectedCurrency}
+              Rate: {baseAmount} {selectedCurrency} ={' '}
+              {exchangeRate ? exchangeRate.toFixed(4) : 'N/A'} CZK
             </div>
           </ResultDetails>
         </ResultSection>
