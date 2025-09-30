@@ -1,6 +1,6 @@
 # Monex
 
-![Monex Logo](./logo.png)
+<img src="./logo.png" alt="Monex Logo" width="100" />
 
 A modern forex application that displays daily CNB (Czech National Bank) exchange rates, built with React, TypeScript and Vite.
 
