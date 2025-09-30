@@ -12,14 +12,14 @@ test.describe('Currency Converter', () => {
           currency: 'US Dollar',
           amount: 1,
           code: 'USD',
-          rate: 0.043,
+          rate: 20.727,
         },
         {
           country: 'European Union',
           currency: 'Euro',
           amount: 1,
           code: 'EUR',
-          rate: 0.039,
+          rate: 24.34,
         },
       ],
     };
@@ -51,16 +51,16 @@ test.describe('Currency Converter', () => {
 
     await expect(page.getByText('Conversion Result')).toBeVisible();
 
-    await expect(page.getByText('4.30 USD', { exact: true })).toBeVisible();
+    await expect(page.getByText('4.82 USD', { exact: true })).toBeVisible();
 
-    await expect(page.getByText('100.00 CZK = 4.30 USD')).toBeVisible();
+    await expect(page.getByText('100.00 CZK = 4.82 USD')).toBeVisible();
 
-    await expect(page.getByText('Rate: 1 CZK = 0.043 USD')).toBeVisible();
+    await expect(page.getByText('Rate: 1 USD = 20.7270 CZK')).toBeVisible();
 
     await amountInput.fill('250');
     await expect(amountInput).toHaveValue('250');
 
-    await expect(page.getByText('10.75 USD', { exact: true })).toBeVisible();
-    await expect(page.getByText('250.00 CZK = 10.75 USD')).toBeVisible();
+    await expect(page.getByText('12.06 USD', { exact: true })).toBeVisible();
+    await expect(page.getByText('250.00 CZK = 12.06 USD')).toBeVisible();
   });
 });

@@ -27,6 +27,13 @@ const mockRates: ForexRate[] = [
     code: 'GBP',
     rate: 29.496,
   },
+  {
+    country: 'Indonesia',
+    currency: 'rupiah',
+    amount: 1000,
+    code: 'IDR',
+    rate: 1.244,
+  },
 ];
 
 describe('CurrencyConverter', () => {
@@ -63,7 +70,7 @@ describe('CurrencyConverter', () => {
     await userEvent.click(usdButton);
 
     await waitFor(() => {
-      expect(screen.getByText('2326.50 USD')).toBeInTheDocument();
+      expect(screen.getByText('4.30 USD')).toBeInTheDocument();
     });
   });
 
@@ -77,7 +84,27 @@ describe('CurrencyConverter', () => {
     await userEvent.click(eurButton);
 
     await waitFor(() => {
-      expect(screen.getByText('8.58 EUR')).toBeInTheDocument();
+      expect(screen.getByText('0.01 EUR')).toBeInTheDocument();
+    });
+  });
+
+  it('converts CZK to Indonesian Rupiah (IDR) correctly', async () => {
+    render(<CurrencyConverter rates={mockRates} />);
+
+    const amountInput = screen.getByLabelText('Amount in CZK to convert');
+    const idrButton = screen.getByLabelText('Select rupiah (IDR)');
+
+    await userEvent.type(amountInput, '4000');
+    await userEvent.click(idrButton);
+
+    await waitFor(() => {
+      expect(screen.getByText('3215434.08 IDR')).toBeInTheDocument();
+      expect(
+        screen.getByText('4000.00 CZK = 3215434.08 IDR'),
+      ).toBeInTheDocument();
+      expect(
+        screen.getByText('Rate: 1000 IDR = 1.2440 CZK'),
+      ).toBeInTheDocument();
     });
   });
 });
