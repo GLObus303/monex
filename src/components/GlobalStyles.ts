@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
 
+import { COLOR } from '../styles/color';
+
 export const GlobalStyles = createGlobalStyle`
   *, *::before, *::after {
     box-sizing: border-box;
@@ -23,7 +25,7 @@ export const GlobalStyles = createGlobalStyle`
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    color: #333;
+    color: ${COLOR.TEXT_PRIMARY};
   }
 
   img, picture, video, canvas, svg {

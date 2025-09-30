@@ -3,7 +3,7 @@
   "extends": [
     "plugin:@typescript-eslint/recommended",
     "plugin:css-modules/recommended",
-    "plugin:react/jsx-runtime"
+    "plugin:react/jsx-runtime",
   ],
   "plugins": ["@typescript-eslint", "css-modules", "react-refresh", "import"],
   "overrides": [
@@ -14,14 +14,14 @@
       "parserOptions": { "project": "./tsconfig.app.json" },
       "rules": {
         "@typescript-eslint/await-thenable": 2, // Disallow await statements that are not thenable, must be only applied to TS files
-        "@typescript-eslint/require-await": 2 // Forbid functions that do not have an await statement inside to have the async keyword
-      }
+        "@typescript-eslint/require-await": 2, // Forbid functions that do not have an await statement inside to have the async keyword
+      },
     },
     {
       "files": ["vite.config.ts"],
       "parser": "@typescript-eslint/parser",
       "plugins": ["@typescript-eslint"],
-      "parserOptions": { "project": "./tsconfig.node.json" }
+      "parserOptions": { "project": "./tsconfig.node.json" },
     },
     {
       "files": ["*.test.ts", "*.test.tsx"],
@@ -29,9 +29,9 @@
       "rules": {
         "no-unused-expressions": 0, // Allow unused expressions in tests
         "@typescript-eslint/no-unused-expressions": 0, // Allow unused expressions in tests
-        "jest/no-focused-tests": 2 // Forbid focused tests
-      }
-    }
+        "jest/no-focused-tests": 2, // Forbid focused tests
+      },
+    },
   ],
 
   "rules": {
@@ -61,24 +61,24 @@
       {
         "groups": [
           ["builtin", "external"],
-          ["internal", "parent", "sibling", "index"]
+          ["internal", "parent", "sibling", "index"],
         ],
         "newlines-between": "always",
         "pathGroups": [
           {
             "pattern": "react",
             "group": "builtin",
-            "position": "before"
+            "position": "before",
           },
           {
             "pattern": "./**/*.{scss,css}",
             "group": "sibling",
-            "position": "after"
-          }
+            "position": "after",
+          },
         ],
         "distinctGroup": false,
-        "pathGroupsExcludedImportTypes": ["react", "scss"]
-      }
+        "pathGroupsExcludedImportTypes": ["react", "scss"],
+      },
     ], // Sort imports in groups, react first, then external. After a new line, components and lastly in the same group scss import
     "import/extensions": [
       0,
@@ -86,8 +86,8 @@
       {
         "js": "never",
         "ts": "never",
-        "tsx": "never"
-      }
+        "tsx": "never",
+      },
     ], // Force extensions on imports apart from the JS/TS related ones
 
     "react-hooks/exhaustive-deps": 0, // Allow missing dependencies in useEffect
@@ -110,9 +110,14 @@
     "@typescript-eslint/no-shadow": 2, // Forbid variable shadowing
     "@typescript-eslint/no-unused-vars": [
       2,
-      { "ignoreRestSiblings": true, "args": "all", "argsIgnorePattern": "^_" }
+      {
+        "ignoreRestSiblings": true,
+        "args": "all",
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+      },
     ], // Forbid unused variables except for those starting with _
     "@typescript-eslint/no-use-before-define": 2, // Require variables to be defined before they are used
-    "@typescript-eslint/no-var-requires": 0 // Allow require statements
-  }
+    "@typescript-eslint/no-var-requires": 0, // Allow require statements
+  },
 }

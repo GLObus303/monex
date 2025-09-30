@@ -1,6 +1,9 @@
 import styled from 'styled-components';
 
 import { useForexRates } from './clientApi/forex';
+import { CurrencyConverter } from './components/CurrencyConverter';
+import { COLOR } from './styles/color';
+import { BREAKPOINT } from './styles/breakpoint';
 
 const Container = styled.div`
   display: flex;
@@ -9,21 +12,29 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  align-items: flex-end;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid ${COLOR.BORDER};
+  background-color: ${COLOR.BACKGROUND_WASH_ME};
 `;
 
 const Title = styled.h1`
   font-size: 2.5rem;
   font-weight: 700;
-  margin: 0 0 0.5rem 0;
+  line-height: 1;
 `;
 
 const Subtitle = styled.h2`
+  display: none;
   font-size: 1.2rem;
-  font-weight: 300;
-  margin: 0;
-  opacity: 0.9;
+  font-weight: 500;
+  color: ${COLOR.TEXT_SECONDARY};
+
+  @media (min-width: ${BREAKPOINT.MOBILE}) {
+    display: block;
+  }
 `;
 
 const Content = styled.main`
@@ -31,22 +42,28 @@ const Content = styled.main`
 `;
 
 const ContentContainer = styled.div`
-  padding: 2rem;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 1rem;
+
+  @media (min-width: ${BREAKPOINT.MOBILE}) {
+    padding: 2rem;
+  }
 `;
 
 const Footer = styled.footer`
   flex-shrink: 0;
   padding: 1rem;
   text-align: center;
-  border-top: 1px solid #eee;
-  background-color: #f8f9fa;
+  border-top: 1px solid ${COLOR.BORDER};
+  background-color: ${COLOR.BACKGROUND_WASH_ME};
 `;
 
 const FooterText = styled.p`
   margin: 0;
   font-size: 0.9rem;
-  color: #666;
+  color: ${COLOR.TEXT_SECONDARY};
 `;
 
 export const App = () => {
@@ -61,11 +78,9 @@ export const App = () => {
 
       <Content>
         <ContentContainer>
-          <p>Check the console for the data output.</p>
-          {isLoading && <p>Loading...</p>}
-          {error && <p>Error: {error.message}</p>}
-          {data && <p>Data loaded! Check console.</p>}
-          {data && <p>Date: {data.date}</p>}
+          {isLoading && <p>Loading exchange rates...</p>}
+          {error && <p>Error loading exchange rates: {error.message}</p>}
+          {!!data && <CurrencyConverter rates={data.rates} />}
         </ContentContainer>
       </Content>
 
