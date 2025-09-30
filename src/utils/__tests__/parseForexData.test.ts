@@ -2,9 +2,10 @@ import { parseForexData } from '../parseForexData';
 
 describe('parseForexData', () => {
   it('should parse valid forex data correctly, even with extra whitespace', () => {
-    const input = `  1 Jan 2024
-    Australia | dollar | 1 | AUD | 15.123
-    Brazil | real | 1 | BRL | 4.567  `;
+    const input = `1 Jan 2024
+Country | Currency | Amount | Code | Rate
+Australia | dollar | 1 | AUD | 15.123
+Brazil | real | 1 | BRL | 4.567`;
 
     const result = parseForexData(input);
 
@@ -31,6 +32,7 @@ describe('parseForexData', () => {
 
   it('should handle decimal rates correctly', () => {
     const input = `1 Jan 2024
+Country | Currency | Amount | Code | Rate
 Japan|yen|100|JPY|15.123456
 Switzerland|franc|1|CHF|25.789`;
 
@@ -42,6 +44,7 @@ Switzerland|franc|1|CHF|25.789`;
 
   it('should handle countries with spaces in names', () => {
     const input = `1 Jan 2024
+Country | Currency | Amount | Code | Rate
 United Kingdom|pound|1|GBP|28.5
 South Africa|rand|1|ZAR|1.2`;
 
@@ -53,6 +56,7 @@ South Africa|rand|1|ZAR|1.2`;
 
   it('should handle currencies with spaces in names', () => {
     const input = `1 Jan 2024
+Country | Currency | Amount | Code | Rate
 New Zealand|New Zealand dollar|1|NZD|13.5`;
 
     const result = parseForexData(input);

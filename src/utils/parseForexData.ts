@@ -12,7 +12,7 @@ type ForexData = {
 };
 
 export const parseForexData = (text: string): ForexData => {
-  const [headerLine, ...rateLines] = text.trim().split('\n');
+  const [headerLine, _columnHeader, ...rateLines] = text.trim().split('\n');
   const [day, month, year] = headerLine.split(' ');
 
   const rates: ForexRate[] = rateLines.map((line) => {

@@ -31,12 +31,12 @@ describe('App', () => {
     expect(subtitleElement.tagName).toBe('H2');
   });
 
-  it('should display the date', () => {
+  it('should display the currency converter', () => {
     renderWithQueryClient(<App />);
 
-    const dateElement = screen.getByText('Date: 2024-01-15');
-    expect(dateElement).toBeInTheDocument();
-    expect(dateElement.tagName).toBe('P');
+    const converterElement = screen.getByText('Currency Converter');
+    expect(converterElement).toBeInTheDocument();
+    expect(converterElement.tagName).toBe('H2');
   });
 
   it('should display the footer text', () => {
